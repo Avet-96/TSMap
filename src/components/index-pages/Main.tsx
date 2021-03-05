@@ -1,11 +1,9 @@
 import React from "react";
-import YMap from "../y-map/YMap";
-import {searchCrew} from "../../api/Api";
+import GMap from "../y-map/GMap";
 
 const Main = () => {
-    searchCrew('',[])
-    return (<div className='d-flex justify-content-center'>
-        <YMap/>
+    return (<div className='d-flex map_styles'>
+        <GMap/>
     </div>)
 }
 

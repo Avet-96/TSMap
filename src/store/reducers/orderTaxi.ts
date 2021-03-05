@@ -1,12 +1,20 @@
+import {ADDRESS_GET_SET_REQUEST} from "../actions/orederTaxi";
+
 interface initialStateI {
-    rooms?: any
+    name?: string
 }
 
 const initialState: initialStateI = {
-    rooms: []
+    name: ''
+
 };
-export default function reducer(state: initialStateI = initialState, action:{type:string, payload:any}) {
+export default function reducer(state: initialStateI = initialState, action: { type: string, payload: any }) {
+
     switch (action.type) {
+        // @ts-ignore
+        case ADDRESS_GET_SET_REQUEST : {
+            return {...state, name: action.payload}
+        }
         default: {
             return state
         }

@@ -1,3 +1,5 @@
 import {combineReducers} from "redux";
-
-export default combineReducers({})
+import orderTaxi from './orderTaxi'
+export default combineReducers({
+    orderTaxi
+})
