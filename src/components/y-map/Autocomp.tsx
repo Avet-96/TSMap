@@ -6,7 +6,6 @@ import Autocomplete from 'react-google-autocomplete';
 class Autocomp extends Component {
 //@ts-ignore
     onPlaceSelected = (place) => {
-        console.log(place)
         const address = place.formatted_address,
             addressArray = place.address_components,
             //@ts-ignore
