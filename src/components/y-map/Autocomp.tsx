@@ -36,6 +36,7 @@ class Autocomp extends Component {
     render() {
         return (
             <Autocomplete
+
                 style={{
                     width: '100%',
                     height: '40px',
@@ -45,6 +46,7 @@ class Autocomp extends Component {
                 }}
                 onPlaceSelected={this.onPlaceSelected}
                 types={['(regions)']}
+
             />
         );
     }

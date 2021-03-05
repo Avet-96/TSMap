@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
+import {GoogleApiWrapper, Map, Marker, Circle} from 'google-maps-react';
 // @ts-ignore
 import Geocode from "react-geocode";
 import {setAndGetAddressName} from "../../store/actions/orederTaxi";
@@ -41,7 +41,7 @@ export class GMap extends Component {
         const lat = latLng.lat();
         const lng = latLng.lng();
         let obj: cordinat = {
-            title: '',
+            title: 'Anna',
             name: '',
             position: {
                 lat: lat,
@@ -49,7 +49,7 @@ export class GMap extends Component {
             }
         }
         //@ts-ignore
-        this.setState({markerLocation: [obj],})
+        this.setState({markerLocation: obj})
 
         this.getAddressName(`${lat}`, `${lng}`)
     };
@@ -86,30 +86,38 @@ export class GMap extends Component {
     }
 
 
-    render() {
+    render() {        // @ts-ignore
+
+        const coords = this.state.markerLocation.position ||  {lat: -21.805149, lng: -49.0921657};
         // @ts-ignore
-
+        const {markerLocation} = this.state
         return (
-
             <Map
-                //@ts-ignore
+                // @ts-ignore
                 google={this.props.google} zoom={14}
-                //@ts-ignore
                 onClick={this.onMapClicked}
+                initialCenter={coords}
+                style={{width: 500, height: 500, position: 'relative'}}
             >
-                {//@ts-ignore
-                    this.state.markerLocation.map((v: any) => {
-                        return (<Marker
-                            //@ts-ignore
-                            title={v.title}
-                            name={v.name}
-                            position={v.position}
-                            onClick={this.onMarkerClick}
-                        />)
-                    })
-                }
 
-
+                <Marker
+                    //@ts-ignore
+                    title={markerLocation.title}
+                    name={markerLocation.name}
+                    position={markerLocation.position}
+                    onClick={this.onMarkerClick}
+                />
+                <Circle
+                    radius={1200}
+                    center={coords}
+                    onMouseover={() => console.log('mouseover')}
+                    onClick={() => console.log('click')}
+                    onMouseout={() => console.log('mouseout')}
+                    strokeColor='transparent'
+                    strokeOpacity={0}
+                    strokeWeight={5}
+                    fillOpacity={0.2}
+                />
                 <div>
                     <h1>
                         {// @ts-ignore
@@ -117,7 +125,6 @@ export class GMap extends Component {
                     </h1>
                 </div>
             </Map>
-
         );
     }
 }
