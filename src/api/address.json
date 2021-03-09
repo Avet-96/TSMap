@@ -1,0 +1,64 @@
+{
+  "address": [
+    {
+      "id": 1223,
+      "address": "38 Leo St, Yerevan, Armenia",
+      "lan": 40.181919231280446,
+      "lng": 44.502567655374996
+    },
+    {
+      "id": 123,
+      "address": "2 Admiral Isakov Ave, Yerevan 0082",
+      "lan": 40.17709932563814,
+      "lng": 44.498834020426266
+    },
+    {
+      "id": 13,
+      "address": "4 Arshakunyats Ave, Yerevan, Armenia",
+      "lan": 40.17119693404811,
+      "lng": 44.50591505222558
+    },
+    {
+      "id": 122993,
+      "address": "24 Martiros Saryan St, Yerevan 0002, Armenia",
+      "lan": 40.18314054755258,
+      "lng": 44.504831439783565
+    },
+    {
+      "id": 1883,
+      "address": "11 Mesrop Mashtots Ave, Yerevan 0002, Armenia",
+      "lan": 40.18100118041328,
+      "lng": 44.507803327372066
+    },
+    {
+      "id": 23,
+      "address": "29 Movses Khorenatsi Street, Yerevan 0010, Armenia",
+      "lan": 40.17320111794759,
+      "lng": 44.511346972039654
+    },
+    {
+      "id": 1223,
+      "address": "2/5 Abovyan St, Yerevan 0010, Երևան, Armenia",
+      "lan": 40.1799230470234,
+      "lng": 44.51469436889024
+    },
+    {
+      "id": 122398989,
+      "address": "16 A Arshakunyats Ave, Yerevan, Armenia",
+      "lan": 40.16880691174687,
+      "lng": 44.506325876763775
+    },
+    {
+      "id": 1212312323,
+      "address": "10 Admiral Isakov Ave, Yerevan 0004, Armenia",
+      "lan": 40.172217365157145,
+      "lng": 44.49375168090196
+    },
+    {
+      "id": 1223,
+      "address": "1 Getar St, Yerevan, Armenia",
+      "lan": 40.1686757370395,
+      "lng": 44.5097161889586
+    }
+  ]
+}

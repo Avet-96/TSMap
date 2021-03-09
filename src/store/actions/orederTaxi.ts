@@ -1,23 +1,41 @@
-interface searI {
-    data: {
-        source_time: string, addresses: [{
-            address: string,
-            lat: number,
-            lon: number
-        }]
+export const ADD_ALL_TAXIS: string = 'ADD_ALL_TAXIS'
+export const GET_ADDRESS_NAME: string = 'GET_ADDRESS_NAME'
+export const MOUTON_MARK: string = 'MOUTON_MARK'
+export const TAXI_DIST: string = 'TAXI_DIST'
+export const CHECK_TAXI: string = 'CHECK_TAXI'
+export const CLEAR_DATA: string = 'CLEAR_DATA'
+
+
+export function addAllTaxi(address: string) {
+    return {type: ADD_ALL_TAXIS, payload: address}
+}
+
+export function getAddressName(name: string) {
+    return {
+        type: GET_ADDRESS_NAME, payload: name
     }
 }
 
-const SEARCH_CREW_REQUEST: string = 'SEARCH_CREW_REQUEST'
-export const ADDRESS_GET_SET_REQUEST: string = 'ADDRESS_GET_SET_REQUEST'
-
-export function searchCrewAction(data: searI) {
+export function moutonMarkInLatLng(lat: number, lng: number) {
     return {
-        type: SEARCH_CREW_REQUEST, payload: data
+        type: MOUTON_MARK, payload: {lat, lng}
     }
 }
-export function setAndGetAddressName(name:string){
+
+export function taxiDist(data: [number]) {
     return {
-        type: ADDRESS_GET_SET_REQUEST, payload: name
+        type: TAXI_DIST, payload: data
+    }
+}
+
+export function checkTaxi(data: {}, km: number) {
+    return {
+        type: CHECK_TAXI, payload: {data, km}
+    }
+}
+
+export function clearData() {
+    return {
+        type: CLEAR_DATA,
     }
 }

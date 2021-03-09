@@ -1,46 +1,42 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Circle, GoogleApiWrapper, Map, Marker} from 'google-maps-react';
+import {calcAllCord, getAddressNameAS} from '../../api/Api'
+import {addAllTaxi, clearData, getAddressName, moutonMarkInLatLng, taxiDist} from "../../store/actions/orederTaxi";
 
-import {GoogleApiWrapper, Map, Marker, Circle} from 'google-maps-react';
-// @ts-ignore
-import Geocode from "react-geocode";
-import {setAndGetAddressName} from "../../store/actions/orederTaxi";
+let isOnInRadius = true
 
-Geocode.setApiKey("AIzaSyAUnnparwjmwwUj4QRy71XI3lUA0iygiZ8");
-Geocode.enableDebug();
-
-
-type cordinat = {
-
+interface IRecipeProps {
+    latLing: (lat: number, lng: number) => any
+    addAllTaxi: () => void
+    getAddressName: (address: any) => void,
     title: string,
     name: string,
     position: { lat: number, lng: number }
-
+    markerLocation: any,
+    getAddressNameAS: () => string,
+    moutonMarkInLatLng: (lal: number, lan: number) => void
+    taxiDist: (data: [number]) => any
+    clearData: () => void
 }
 
 
-export class GMap extends Component {
-    constructor(props: {}) {
-        super(props);
+export class GMap extends Component<IRecipeProps> {
+    constructor(props: any) {
+        super(props)
         this.state = {
             showingInfoWindow: false,
             activeMarker: {},
-            selectedPlace: {
-                name: ''
-            },
             initialCenter: {},
-            //@ts-ignore
-            markerLocation: []
+            markerLocation: [],
         }
     }
 
-
-    //@ts-ignore
-    onMapClicked = (t, map, coord) => {
+    onMapClicked = async (t: any, map: any, coord: any) => {
         const {latLng} = coord;
         const lat = latLng.lat();
         const lng = latLng.lng();
-        let obj: cordinat = {
+        let obj = {
             title: 'Anna',
             name: '',
             position: {
@@ -48,96 +44,89 @@ export class GMap extends Component {
                 lng: lng,
             }
         }
-        //@ts-ignore
         this.setState({markerLocation: obj})
+        let name = await getAddressNameAS(`${lat}`, `${lng}`)
+        this.props.taxiDist(calcAllCord({lat, lan: lng}))
+        this.props.getAddressName(name)
+        this.props.addAllTaxi()
+        this.props.moutonMarkInLatLng(0, 0)
 
-        this.getAddressName(`${lat}`, `${lng}`)
+        if (isOnInRadius) {
+            this.props.clearData()
+        }
     };
 
-    // @ts-ignore
-    onMarkerClick = (props, marker, e) => {
-        const lat = marker.position.lat();
-        const lng = marker.position.lng();
-        let index = null
-        // @ts-ignore
-        let data = this.state.markerLocation.forEach((val: any, ind: number, a: []) => {
-            if (val.position.lat === lat && val.position.lng === lng) {
-                index = ind
-            }
-        })
-        // @ts-ignore
-        this.state.markerLocation.splice(index, 1)
-        this.setState({
-            data
-        })
-
-    }
-    getAddressName = (lat: string, lng: string) => {
-        Geocode.fromLatLng(lat, lng).then(
-            (response: any) => {
-                const address = response.results[0].formatted_address;
-                // @ts-ignore
-                this.props.setAndGetAddressName(address)
-            },
-            (error: any) => {
-                console.error(error);
-            }
-        );
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    isMousOut = (ev: string = 'out') => isOnInRadius = ev === 'out'
 
 
-    render() {        // @ts-ignore
-
-        const coords = this.state.markerLocation.position ||  {lat: -21.805149, lng: -49.0921657};
+    render() {
         // @ts-ignore
         const {markerLocation} = this.state
-        return (
-            <Map
-                // @ts-ignore
-                google={this.props.google} zoom={14}
-                onClick={this.onMapClicked}
-                initialCenter={coords}
-                style={{width: 500, height: 500, position: 'relative'}}
-            >
+        // @ts-ignore
+        const {taxis, latLng} = this.props;
+        // @ts-ignore
 
-                <Marker
+        return <Map
+            // @ts-ignore
+            google={this.props.google} zoom={14}
+            onClick={this.onMapClicked}
+            initialCenter={{lat: 40.177200, lng: 44.503490}}
+            style={{width: 500, height: 500, position: 'relative'}}
+        >
+
+            <Marker
+                //@ts-ignore
+                title={markerLocation.title}
+                //@ts-ignore
+                name={markerLocation.name}
+                position={latLng.lat !== 0 && latLng.lng !== 0 ? latLng : markerLocation.position}
+                //@ts-ignore
+                onClick={this.onMarkerClick}
+            />
+            {taxis.length ? taxis.map((taxi: any) => <Marker
+                    key={taxi.crew_id}
                     //@ts-ignore
-                    title={markerLocation.title}
-                    name={markerLocation.name}
-                    position={markerLocation.position}
-                    onClick={this.onMarkerClick}
+                    title={taxi.car_model}
+                    //@ts-ignore
+                    name={taxi.driver_name}
+                    position={{lat: taxi.lat, lng: taxi.lon}}
+                    //@ts-ignore
                 />
-                <Circle
-                    radius={1200}
-                    center={coords}
-                    onMouseover={() => console.log('mouseover')}
-                    onClick={() => console.log('click')}
-                    onMouseout={() => console.log('mouseout')}
-                    strokeColor='transparent'
-                    strokeOpacity={0}
-                    strokeWeight={5}
-                    fillOpacity={0.2}
-                />
-                <div>
-                    <h1>
-                        {// @ts-ignore
-                            this.state.selectedPlace.name}
-                    </h1>
-                </div>
-            </Map>
-        );
+            ) : ''}
+            <Circle
+                radius={1200}
+                center={{lat: 40.177200, lng: 44.503490}}
+                onClick={this.onMapClicked}
+                onMouseout={() => this.isMousOut('out')}
+                onMouseover={() => this.isMousOut('over')}
+                strokeColor='transparent'
+                strokeOpacity={0}
+                strokeWeight={5}
+                fillOpacity={0.2}
+            />
+        </Map>
     }
 }
 
-const mapStateToProps = (state: {}) => ({});
+const mapStateToProps = (state: { orderTaxi: { taxis: any, latLng: any } }) => ({
+    taxis: state.orderTaxi.taxis,
+    latLng: state.orderTaxi.latLng,
+
+});
 
 const mapDispatchToProps = {
-    setAndGetAddressName
+    addAllTaxi,
+    getAddressName,
+    moutonMarkInLatLng,
+    taxiDist,
+    clearData,
 };
 
 const Container = connect(
     mapStateToProps,
     mapDispatchToProps,
+    //@ts-ignore
 )(GMap);
 
 export default GoogleApiWrapper({

@@ -1,8 +1,9 @@
 import Home from "../components/index-pages/Home";
 
-export default {
+const routerComponents = {
     home: {
         component: Home,
         path: '/',
     },
 }
+export default routerComponents

@@ -2,6 +2,19 @@ body {
     color: #ccc
 }
 
+.texi {
+    width: 100%;
+    border: 1px solid;
+    padding: 20px 21px;
+    margin: 20px 0;
+}
+
+.texi:hover {
+    background: #fc0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
 .footer-widget p {
     margin-bottom: 27px;
 }
@@ -12,10 +25,28 @@ p {
     color: white;
     line-height: 28px;
 }
-.map_styles{
+
+.map_styles {
     position: relative;
     height: 600px;
 }
+
+.taxi_block {
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    font-size: 21px;
+    position: absolute;
+    right: 0;
+    text-outline: 10%;
+}
+
+
+.tax {
+    position: absolute;
+    right: 0;
+}
+
 .animate-border {
     position: relative;
     display: block;

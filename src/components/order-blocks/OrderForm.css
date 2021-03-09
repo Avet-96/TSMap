@@ -1,0 +1,17 @@
+.select_menu {
+    padding: 2% 4%;
+    background: white;
+}
+
+.select_menu > p {
+    margin: 0;
+    font-size: 16px;
+    color: black;
+}
+
+.select_menu > p:hover {
+    background: black;
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+}
