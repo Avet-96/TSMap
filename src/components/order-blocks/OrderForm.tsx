@@ -6,9 +6,20 @@ import './OrderForm.css'
 import {addAllTaxi, getAddressName, moutonMarkInLatLng, taxiDist} from "../../store/actions/orederTaxi";
 import {calcAllCord} from "../../api/Api";
 
+interface IOrderForm {
+    getAddressName: (name: string) => void,
+    moutonMarkInLatLng: (lat: number, lan: number) => void,
+    addAllTaxi: () => void,
+    taxiDist: (data: [any]) => void,
+    addressDb: any,
+    isOpen: boolean,
+    valueName: string,
+    name: string
 
-class OrderForm extends Component {
-    constructor(props: {}) {
+}
+
+class OrderForm extends Component<IOrderForm> {
+    constructor(props: any) {
         super(props);
         this.state = {
             valueName: '',
@@ -24,11 +35,9 @@ class OrderForm extends Component {
             valueName: e.target.value,
             isOpen: true
         })
-        // @ts-ignore
         this.props.getAddressName('')
     }
     changeSelectData = (data: any) => {
-        // @ts-ignore
         const {moutonMarkInLatLng, getAddressName, addAllTaxi, taxiDist} = this.props
         this.setState({
             isOpen: false,
@@ -43,7 +52,6 @@ class OrderForm extends Component {
     render() {
         // @ts-ignore
         const {addressDb, isOpen, valueName} = this.state
-        // @ts-ignore
         const {name} = this.props
         return (
             <Form.Group>
@@ -54,8 +62,8 @@ class OrderForm extends Component {
                     onChange={e => this.handleChange(e)}
                 />
                 {isOpen ? <div className='d-flex flex-column select_menu'>
-                    {addressDb.map((adr: any) =>
-                        <p key={adr.id} onClick={() => this.changeSelectData(adr)}>{
+                    {addressDb.map((adr: any, i: number) =>
+                        <p key={i} onClick={() => this.changeSelectData(adr)}>{
                             adr.address
                         }</p>
                     )}
@@ -81,5 +89,6 @@ const mapDispatchToProps = {
 const Container = connect(
     mapStateToProps,
     mapDispatchToProps,
+    // @ts-ignore
 )(OrderForm);
 export default Container

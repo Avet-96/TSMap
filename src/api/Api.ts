@@ -31,13 +31,6 @@ export function calcAllCord(from: { lat: number, lan: number }) {
     return data
 }
 
-export function orderTaxi(data: {
-    source_time: number, address: [{
-        address: string
-        lat: number
-        lon: number
-    }],
-    crew_id: number
-}) {
+export function orderTaxi(data: { crew_id: any; address: { address: any; lan: any; lat: any }[]; source_time: number }) {
     console.log(data)
 }

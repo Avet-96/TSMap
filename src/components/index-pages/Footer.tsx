@@ -10,7 +10,6 @@ const Footer = (props: any) => {
     const handleClick = (driver: any, cord: number) => {
         console.log(driver, cord)
         console.log(props.checkTaxi(driver, cord))
-        //   props.checkTaxi(driver, cord)
     }
     return (
         <footer id="dk-footer" className="dk-footer">
@@ -34,7 +33,9 @@ const Footer = (props: any) => {
                         ) : ''}
                     </div>
                     <div className="col-md-12 col-lg-5">
-                        <OrderForm/>
+                        {// @ts-ignore
+                            <OrderForm/>}
+
                     </div>
                 </div>
             </div>

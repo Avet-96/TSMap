@@ -9,7 +9,10 @@ class Home extends Component {
             <div>
                 <Header/>
                 <div className='container'>
-                    <Main/>
+                    {//@ts-ignore
+                        <Main/>
+
+                    }
                 </div>
                 <Footer/>
             </div>

@@ -17,7 +17,11 @@ interface IRecipeProps {
     getAddressNameAS: () => string,
     moutonMarkInLatLng: (lal: number, lan: number) => void
     taxiDist: (data: [number]) => any
-    clearData: () => void
+    clearData: () => void,
+    taxis: any
+    latLng: any,
+    google: any,
+
 }
 
 
@@ -25,9 +29,6 @@ export class GMap extends Component<IRecipeProps> {
     constructor(props: any) {
         super(props)
         this.state = {
-            showingInfoWindow: false,
-            activeMarker: {},
-            initialCenter: {},
             markerLocation: [],
         }
     }
@@ -50,25 +51,20 @@ export class GMap extends Component<IRecipeProps> {
         this.props.getAddressName(name)
         this.props.addAllTaxi()
         this.props.moutonMarkInLatLng(0, 0)
-
         if (isOnInRadius) {
             this.props.clearData()
         }
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isMousOut = (ev: string = 'out') => isOnInRadius = ev === 'out'
 
 
     render() {
         // @ts-ignore
         const {markerLocation} = this.state
-        // @ts-ignore
         const {taxis, latLng} = this.props;
-        // @ts-ignore
 
         return <Map
-            // @ts-ignore
             google={this.props.google} zoom={14}
             onClick={this.onMapClicked}
             initialCenter={{lat: 40.177200, lng: 44.503490}}
@@ -76,22 +72,17 @@ export class GMap extends Component<IRecipeProps> {
         >
 
             <Marker
-                //@ts-ignore
                 title={markerLocation.title}
-                //@ts-ignore
+                // @ts-ignore
                 name={markerLocation.name}
                 position={latLng.lat !== 0 && latLng.lng !== 0 ? latLng : markerLocation.position}
-                //@ts-ignore
-                onClick={this.onMarkerClick}
             />
             {taxis.length ? taxis.map((taxi: any) => <Marker
                     key={taxi.crew_id}
-                    //@ts-ignore
                     title={taxi.car_model}
-                    //@ts-ignore
+                    // @ts-ignore
                     name={taxi.driver_name}
                     position={{lat: taxi.lat, lng: taxi.lon}}
-                    //@ts-ignore
                 />
             ) : ''}
             <Circle
