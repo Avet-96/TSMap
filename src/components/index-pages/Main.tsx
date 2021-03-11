@@ -20,21 +20,23 @@ const Main: React.FC<IMain> = (props: any) => {
     return (<div className='d-flex map_styles'>
         <GMap/>
         <div className='tax'>
-            <h2 className='blink_me'>TAXI INFO</h2>
             {props.check.length > 0 ?
-                < div className='taxi_block'>
-                    <span> {props.check[0].data.car_mark}</span>
-                    <span>{props.check[0].data.car_model}</span>
-                    <span>{props.check[0].data.car_color}</span>
-                    <span>{props.check[0].data.car_number}</span>
-                    <span>{props.check[0].data.driver_name}</span>
-                    <span>{props.check[0].data.driver_phone}</span>
-                    <span>{props.check[0].km + 'M'}</span>
-                    <button className='btn btn-info '
-                            onClick={orderTax}
-                    >Order Taxi
-                    </button>
-                </div>
+                <>
+                    <h2 className='blink_me'>TAXI INFO</h2>
+                    < div className='taxi_block'>
+                        <span> {props.check[0].data.car_mark}</span>
+                        <span>{props.check[0].data.car_model}</span>
+                        <span>{props.check[0].data.car_color}</span>
+                        <span>{props.check[0].data.car_number}</span>
+                        <span>{props.check[0].data.driver_name}</span>
+                        <span>{props.check[0].data.driver_phone}</span>
+                        <span>{props.check[0].km + 'M'}</span>
+                        <button className='btn btn-info '
+                                onClick={orderTax}
+                        >Order Taxi
+                        </button>
+                    </div>
+                </>
                 : ''
             }
         </div>
