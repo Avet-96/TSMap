@@ -17,9 +17,7 @@ export class GMap extends Component<IRecipeProps, IState> {
     }
 
     onMapClicked = async (t: any, map: any, coord: any) => {
-        const {latLng} = coord;
-        const lat = latLng.lat();
-        const lng = latLng.lng();
+        const {latLng} = coord, lat = latLng.lat(), lng = latLng.lng();
         let obj = {
             title: 'Anna',
             name: '',
@@ -28,31 +26,37 @@ export class GMap extends Component<IRecipeProps, IState> {
                 lng: lng,
             }
         }
-        this.setState({markerLocation: obj})
         let name = await getAddressNameAS(`${lat}`, `${lng}`)
-        this.props.taxiDist(calcAllCord({lat, lan: lng}))
-        this.props.getAddressName(name)
-        this.props.addAllTaxi()
-        this.props.moutonMarkInLatLng(0, 0)
+        this.changeDataFunc(obj, lat, lng, name)
+
+    };
+
+    changeDataFunc = (obj: any, lat: number, lng: number, name: string) => {
+        const {taxiDist, getAddressName, addAllTaxi, moutonMarkInLatLng} = this.props
+
+        this.setState({markerLocation: obj})
+        taxiDist(calcAllCord({lat, lan: lng}))
+        getAddressName(name)
+        addAllTaxi()
+        moutonMarkInLatLng(0, 0)
+
         if (isOnInRadius) {
             this.props.clearData()
         }
-    };
+    }
 
-    isMousOut = (ev: string = 'out') => isOnInRadius = ev === 'out'
+    isMouseOut = (ev: string = 'out') => isOnInRadius = ev === 'out'
 
 
     render() {
         const {markerLocation} = this.state
         const {taxis, latLng} = this.props;
-
         return <Map
             google={this.props.google} zoom={14}
             onClick={this.onMapClicked}
             initialCenter={{lat: 40.177200, lng: 44.503490}}
             style={{width: 500, height: 500, position: 'relative'}}
         >
-
             <Marker
                 title={markerLocation.title}
                 position={latLng.lat !== 0 && latLng.lng !== 0 ? latLng : markerLocation.position}
@@ -67,8 +71,8 @@ export class GMap extends Component<IRecipeProps, IState> {
                 radius={1200}
                 center={{lat: 40.177200, lng: 44.503490}}
                 onClick={this.onMapClicked}
-                onMouseout={() => this.isMousOut('out')}
-                onMouseover={() => this.isMousOut('over')}
+                onMouseout={() => this.isMouseOut('out')}
+                onMouseover={() => this.isMouseOut('over')}
                 strokeColor='transparent'
                 strokeOpacity={0}
                 strokeWeight={5}

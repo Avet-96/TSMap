@@ -1,4 +1,3 @@
-
 export default interface IOrderForm {
     getAddressName: (name: string) => void,
     moutonMarkInLatLng: (lat: number, lan: number) => void,

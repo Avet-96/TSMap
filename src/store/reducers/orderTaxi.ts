@@ -1,19 +1,6 @@
 import {ADD_ALL_TAXIS, CHECK_TAXI, CLEAR_DATA, GET_ADDRESS_NAME, MOUTON_MARK, TAXI_DIST} from "../actions/orederTaxi";
 import {tOrderTaxi} from "../../api/Api";
-
-
-interface initialStateI {
-    name?: string,
-    taxis?: any
-    address?: any
-    marAddressNAme?: string,
-    latLng: {
-        lat: number
-        lng: number
-    },
-    taxiDist: [],
-    check: []
-}
+import initialStateI from "../../interfece/IStore/IOrderTaxiStore";
 
 const initialState: initialStateI = {
     name: '',
@@ -44,7 +31,15 @@ export default function reducer(state: initialStateI = initialState, action: { t
             return {...state, check: [action.payload]}
         }
         case CLEAR_DATA: {
-            return {...state, taxis: [], address: [], latLng: {lat: 0, lng: 0}, taxiDist: [], check: []}
+            return {
+                ...state,
+                name: '',
+                taxis: [],
+                address: [],
+                latLng: {lat: 0, lng: 0},
+                taxiDist: [],
+                check: []
+            }
         }
         default: {
             return state
