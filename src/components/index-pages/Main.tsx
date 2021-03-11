@@ -18,9 +18,9 @@ const Main: React.FC<IMain> = (props: any) => {
         props.orderTaxi(data)
     }
     return (<div className='d-flex map_styles'>
-        <GMap />
+        <GMap/>
         <div className='tax'>
-            <h2>TAXI INFO</h2>
+            <h2 className='blink_me'>TAXI INFO</h2>
             {props.check.length > 0 ?
                 < div className='taxi_block'>
                     <span> {props.check[0].data.car_mark}</span>

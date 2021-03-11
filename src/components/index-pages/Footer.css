@@ -39,12 +39,37 @@ p {
     position: absolute;
     right: 0;
     text-outline: 10%;
+    line-height: 40px;
+    width: 200px;
 }
 
+.taxi_block > span {
+    width: 100%;
+    text-align: center;
+    border: 1px solid lavender;
+    margin-bottom: 8px;
+}
+
+.tax > h2 {
+    margin-right: 53px;
+    text-align: center;
+    width: 100%;
+}
 
 .tax {
     position: absolute;
     right: 0;
+    box-shadow: 0 0 10px #ec1126;
+    background: orange;
+}
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
 
 .animate-border {

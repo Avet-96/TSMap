@@ -30,7 +30,6 @@ export class GMap extends Component<IRecipeProps, IState> {
         this.changeDataFunc(obj, lat, lng, name)
 
     };
-
     changeDataFunc = (obj: any, lat: number, lng: number, name: string) => {
         const {taxiDist, getAddressName, addAllTaxi, moutonMarkInLatLng} = this.props
 
@@ -44,10 +43,7 @@ export class GMap extends Component<IRecipeProps, IState> {
             this.props.clearData()
         }
     }
-
     isMouseOut = (ev: string = 'out') => isOnInRadius = ev === 'out'
-
-
     render() {
         const {markerLocation} = this.state
         const {taxis, latLng} = this.props;
@@ -102,6 +98,6 @@ const Container = connect(
 )(GMap);
 
 export default GoogleApiWrapper({
-    apiKey: (API_KEY)
+    apiKey: (API_KEY),
     // @ts-ignore
 })(Container)

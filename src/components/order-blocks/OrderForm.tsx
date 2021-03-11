@@ -55,7 +55,6 @@ class OrderForm extends Component <IOrderForm,IState> {
                         }</p>
                     )}
                 </div> : ''}
-                <br/>
             </Form.Group>
     }
 }

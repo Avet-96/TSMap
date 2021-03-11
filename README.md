@@ -58,4 +58,12 @@ For using it you have to follow these steps:
 
 2)npm start or yarn start
 
+debugging
 
+1)import {compose} from 'redux'
+
+2)const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+3) const store = createStore(
+   reducer, composeEnhancers()
+   )
