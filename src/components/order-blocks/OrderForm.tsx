@@ -1,34 +1,22 @@
 import React, {Component} from 'react';
 import {Form, Button} from 'react-bootstrap'
-import db from '../../api/address.json'
+import db from '../../api/db/address.json'
 import {connect} from "react-redux";
 import './OrderForm.css'
 import {addAllTaxi, getAddressName, moutonMarkInLatLng, taxiDist} from "../../store/actions/orederTaxi";
 import {calcAllCord} from "../../api/Api";
+import IOrderForm,{IState} from '../../interfece/IOrderForm'
 
-interface IOrderForm {
-    getAddressName: (name: string) => void,
-    moutonMarkInLatLng: (lat: number, lan: number) => void,
-    addAllTaxi: () => void,
-    taxiDist: (data: [any]) => void,
-    addressDb: any,
-    isOpen: boolean,
-    valueName: string,
-    name: string
 
-}
-
-class OrderForm extends Component<IOrderForm> {
+class OrderForm extends Component <IOrderForm,IState> {
     constructor(props: any) {
         super(props);
         this.state = {
             valueName: '',
-            addressData: [],
             addressDb: db.address,
             isOpen: false
         }
     }
-
 
     handleChange = (e: any) => {
         this.setState({
@@ -50,11 +38,9 @@ class OrderForm extends Component<IOrderForm> {
     }
 
     render() {
-        // @ts-ignore
         const {addressDb, isOpen, valueName} = this.state
         const {name} = this.props
-        return (
-            <Form.Group>
+        return <Form.Group>
                 <Form.Control
                     type="text"
                     placeholder="Одкуда"
@@ -69,23 +55,18 @@ class OrderForm extends Component<IOrderForm> {
                     )}
                 </div> : ''}
                 <br/>
-                <Button variant="success">Заказать</Button>
             </Form.Group>
-        );
     }
 }
-
 const mapStateToProps = (state: { orderTaxi: { name: string } }) => ({
     name: state.orderTaxi.name
 });
-
 const mapDispatchToProps = {
     getAddressName,
     moutonMarkInLatLng,
     addAllTaxi,
     taxiDist
 };
-
 const Container = connect(
     mapStateToProps,
     mapDispatchToProps,

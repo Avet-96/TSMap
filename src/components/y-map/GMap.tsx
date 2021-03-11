@@ -3,33 +3,16 @@ import {connect} from "react-redux";
 import {Circle, GoogleApiWrapper, Map, Marker} from 'google-maps-react';
 import {calcAllCord, getAddressNameAS} from '../../api/Api'
 import {addAllTaxi, clearData, getAddressName, moutonMarkInLatLng, taxiDist} from "../../store/actions/orederTaxi";
+import IRecipeProps, {IState} from '../../interfece/IGMap'
+import {API_KEY} from "../../api/config";
 
 let isOnInRadius = true
 
-interface IRecipeProps {
-    latLing: (lat: number, lng: number) => any
-    addAllTaxi: () => void
-    getAddressName: (address: any) => void,
-    title: string,
-    name: string,
-    position: { lat: number, lng: number }
-    markerLocation: any,
-    getAddressNameAS: () => string,
-    moutonMarkInLatLng: (lal: number, lan: number) => void
-    taxiDist: (data: [number]) => any
-    clearData: () => void,
-    taxis: any
-    latLng: any,
-    google: any,
-
-}
-
-
-export class GMap extends Component<IRecipeProps> {
+export class GMap extends Component<IRecipeProps, IState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            markerLocation: [],
+            markerLocation: {},
         }
     }
 
@@ -60,7 +43,6 @@ export class GMap extends Component<IRecipeProps> {
 
 
     render() {
-        // @ts-ignore
         const {markerLocation} = this.state
         const {taxis, latLng} = this.props;
 
@@ -73,15 +55,11 @@ export class GMap extends Component<IRecipeProps> {
 
             <Marker
                 title={markerLocation.title}
-                // @ts-ignore
-                name={markerLocation.name}
                 position={latLng.lat !== 0 && latLng.lng !== 0 ? latLng : markerLocation.position}
             />
             {taxis.length ? taxis.map((taxi: any) => <Marker
                     key={taxi.crew_id}
                     title={taxi.car_model}
-                    // @ts-ignore
-                    name={taxi.driver_name}
                     position={{lat: taxi.lat, lng: taxi.lon}}
                 />
             ) : ''}
@@ -103,7 +81,6 @@ export class GMap extends Component<IRecipeProps> {
 const mapStateToProps = (state: { orderTaxi: { taxis: any, latLng: any } }) => ({
     taxis: state.orderTaxi.taxis,
     latLng: state.orderTaxi.latLng,
-
 });
 
 const mapDispatchToProps = {
@@ -117,10 +94,10 @@ const mapDispatchToProps = {
 const Container = connect(
     mapStateToProps,
     mapDispatchToProps,
-    //@ts-ignore
+    // @ts-ignore
 )(GMap);
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyAUnnparwjmwwUj4QRy71XI3lUA0iygiZ8')
+    apiKey: (API_KEY)
     // @ts-ignore
 })(Container)

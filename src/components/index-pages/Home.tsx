@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
+import {orderTaxi} from "../../api/Api";
 
 class Home extends Component {
     render() {
@@ -9,10 +10,7 @@ class Home extends Component {
             <div>
                 <Header/>
                 <div className='container'>
-                    {//@ts-ignore
-                        <Main/>
-
-                    }
+                    <Main orderTaxi={orderTaxi}/>
                 </div>
                 <Footer/>
             </div>

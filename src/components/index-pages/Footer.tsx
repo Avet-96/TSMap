@@ -19,7 +19,7 @@ const Footer = (props: any) => {
                         <h2 className='text-center'>Свабоднэ такси</h2>
                         {props.taxiDist.length > 0 ? tOrderTaxi().data.crews_info.map((taxis: any, index) =>
                             <div className='d-flex justify-content-around texi'
-                                 key={taxis.crew_id}
+                                 key={index}
                                  onClick={() => handleClick(taxis, props.taxiDist[index])}
                             >
                                 <span>{taxis.car_mark}</span>
@@ -33,9 +33,7 @@ const Footer = (props: any) => {
                         ) : ''}
                     </div>
                     <div className="col-md-12 col-lg-5">
-                        {// @ts-ignore
-                            <OrderForm/>}
-
+                        <OrderForm/>
                     </div>
                 </div>
             </div>

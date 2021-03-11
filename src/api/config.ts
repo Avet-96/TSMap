@@ -1,11 +1,1 @@
-const publicIp = require('public-ip');
-
-
-const getIp = async () => {
-    return {
-        ip_v4: await publicIp.v4(),
-    }
-}
-
-
-export default getIp
+export const API_KEY = 'AIzaSyAUnnparwjmwwUj4QRy71XI3lUA0iygiZ8'

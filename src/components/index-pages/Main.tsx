@@ -1,17 +1,8 @@
 import React from "react";
 import GMap from "../y-map/GMap";
 import {connect} from "react-redux";
-import {orderTaxi} from "../../api/Api";
+import IMain from "../../interfece/IMain";
 
-interface IMain {
-    orderTaxi: (data: {
-        source_time: number, address: [{
-            address: string,
-            lat: string,
-            lan: string
-        }], crew_id: number
-    }) => void
-}
 
 const Main: React.FC<IMain> = (props: any) => {
     const orderTax = () => {
@@ -24,13 +15,10 @@ const Main: React.FC<IMain> = (props: any) => {
             }],
             crew_id: props.check[0].crew_id
         }
-        orderTaxi(data)
+        props.orderTaxi(data)
     }
     return (<div className='d-flex map_styles'>
-        {        // @ts-ignore
-            <GMap/>
-
-        }
+        <GMap />
         <div className='tax'>
             <h2>TAXI INFO</h2>
             {props.check.length > 0 ?
